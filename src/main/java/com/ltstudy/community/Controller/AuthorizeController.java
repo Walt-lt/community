@@ -3,6 +3,7 @@ package com.ltstudy.community.Controller;
 import com.ltstudy.community.Provider.GitHubProvider;
 import com.ltstudy.community.dto.AccessTokenDTO;
 import com.ltstudy.community.dto.GitHubUser;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,8 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
-                           @RequestParam(name = "state") String state){
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -35,8 +37,14 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         String accessToken= gitHubProvider.getAccess_token(accessTokenDTO);
         GitHubUser user= gitHubProvider.getUser(accessToken);
-        System.out.println(user.getBio());
-        return "index";
+        if (user != null){
+            //登录成功
+            request.getSession().setAttribute("user",user);
+            return "redirect:/";
+        }else {
+            //登录失败
+            return "redirect:/";
+        }
     }
 
 }
