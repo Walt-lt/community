@@ -1,4 +1,4 @@
-package com.ltstudy.community.dto;
+package com.ltstudy.community.DTO;
 
 public class GitHubUser {
     private  String name;

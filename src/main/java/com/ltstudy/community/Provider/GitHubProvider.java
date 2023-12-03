@@ -1,8 +1,8 @@
 package com.ltstudy.community.Provider;
 
 import com.alibaba.fastjson.JSON;
-import com.ltstudy.community.dto.AccessTokenDTO;
-import com.ltstudy.community.dto.GitHubUser;
+import com.ltstudy.community.DTO.AccessTokenDTO;
+import com.ltstudy.community.DTO.GitHubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

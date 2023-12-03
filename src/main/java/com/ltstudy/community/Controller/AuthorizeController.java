@@ -1,14 +1,18 @@
 package com.ltstudy.community.Controller;
 
+import com.ltstudy.community.Mapper.UserMapper;
+import com.ltstudy.community.Model.User;
 import com.ltstudy.community.Provider.GitHubProvider;
-import com.ltstudy.community.dto.AccessTokenDTO;
-import com.ltstudy.community.dto.GitHubUser;
+import com.ltstudy.community.DTO.AccessTokenDTO;
+import com.ltstudy.community.DTO.GitHubUser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
@@ -22,7 +26,8 @@ public class AuthorizeController {
     @Value("${github.redirect.uri}")
     private  String redirectUri;
 
-
+    @Autowired//自动将实例化好的对象放在userMapper
+    private UserMapper userMapper;
 
 
     @GetMapping("/callback")
@@ -36,10 +41,17 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String accessToken= gitHubProvider.getAccess_token(accessTokenDTO);
-        GitHubUser user= gitHubProvider.getUser(accessToken);
-        if (user != null){
+        GitHubUser gitHubUser= gitHubProvider.getUser(accessToken);
+        if (gitHubUser != null){
             //登录成功
-            request.getSession().setAttribute("user",user);
+            User user=new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(gitHubUser.getName());
+            user.setAccount_id(String.valueOf(gitHubUser.getId()));
+            user.setGmt_create(System.currentTimeMillis());
+            user.setGmt_modified(user.getGmt_modified());
+            userMapper.insert(user);
+            request.getSession().setAttribute("user",gitHubUser);
             return "redirect:/";
         }else {
             //登录失败
