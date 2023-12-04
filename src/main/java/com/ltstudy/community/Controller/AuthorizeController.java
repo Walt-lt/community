@@ -5,7 +5,9 @@ import com.ltstudy.community.Model.User;
 import com.ltstudy.community.Provider.GitHubProvider;
 import com.ltstudy.community.DTO.AccessTokenDTO;
 import com.ltstudy.community.DTO.GitHubUser;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -33,7 +35,8 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request){
+                           HttpServletRequest request,
+                           HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -45,13 +48,16 @@ public class AuthorizeController {
         if (gitHubUser != null){
             //登录成功
             User user=new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setName(gitHubUser.getName());
             user.setAccount_id(String.valueOf(gitHubUser.getId()));
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modified(user.getGmt_modified());
             userMapper.insert(user);
-            request.getSession().setAttribute("user",gitHubUser);
+            //cookie
+            response.addCookie(new Cookie("token",token));
+            //request.getSession().setAttribute("user",gitHubUser);
             return "redirect:/";
         }else {
             //登录失败
