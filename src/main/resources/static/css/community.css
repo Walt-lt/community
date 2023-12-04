@@ -1,0 +1,16 @@
+body{
+    background-color: #adadad;
+}
+.mainCss{
+    margin:30px;
+}
+.bgc_grey1{
+    background-color: #efefef;
+}
+.bgc_write1{
+    background-color: #dbdbdb;
+}
+.publish_button{
+    float: right;
+    margin: 15px;
+}

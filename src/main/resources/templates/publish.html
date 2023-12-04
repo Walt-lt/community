@@ -45,5 +45,39 @@
         </div>
     </div>
 </nav>
+<div class="container-fluid mainCss bgc_write1">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-xs-12" >
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true">发起</span></h2>
+            <hr>
+
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">问题标题（必填）</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="问题标题。。。。。。">
+                </div>
+                <div class="form-group">
+                    <label for="title">问题补充（必填）</label>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="title">添加标签</label>
+                    <input type="text" class="form-control" name="tag" id="tag" placeholder="输入标签，以 , 间隔">
+                </div>
+                <button type="submit" class="btn btn-success publish_button" >发布</button>
+                <span th:text="${error}" class="alert alert-danger" ></span>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-xs-12 bgc_grey1">
+            <h3>问题发起指南</h3>
+            <br>
+            问题标题：请用简洁的语言描述问题，不超过25字
+            <br>
+            问题补充：详细补充问题内容
+            <br>
+            问题标签：选择一个1或多个标签，用逗号隔开,每个标签不超过十个字。
+        </div>
+    </div>
+</div>
 </body>
 </html>
