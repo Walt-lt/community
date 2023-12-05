@@ -35,14 +35,23 @@ public class PublishController {
             HttpServletRequest request,
             Model model
     ){
+
+
+
+
+        //获取发布的问题的信息
+        model.addAttribute("title",title);
+        model.addAttribute("description",description);
+        model.addAttribute("tag",tag);
+
         //写入cookie
-        User user=null;
         Cookie[] cookies=request.getCookies();
         //获取token
+        User user=new User();
         for(Cookie cookie:cookies){
             if(cookie.getName().equals("token")){
                 String token=cookie.getValue();
-                user = userMapper.findByToken(token);
+            user = userMapper.findByToken(token);
 
                 //验证
                 if (user !=null){
@@ -57,13 +66,28 @@ public class PublishController {
             return  "publish";
         }
 
+        //判断是否发布成功
+        if(title==null || title == ""){
+            model.addAttribute("error","标题不为空");
+            return "publish";
+        }
+        if(description==null || description == ""){
+            model.addAttribute("error","问题内容不为空");
+            return "publish";
+        }
+        if(tag==null || tag == ""){
+            model.addAttribute("error","标签不为空");
+            return "publish";
+        }
+
+        //将得到的信息传输到表中
         Question question=new Question();
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmt_create(System.currentTimeMillis());
-        question.setGmt_modified(question.getGmt_create());
+        question.setGmtCreate(System.currentTimeMillis());
+        question.setGmtModified(question.getGmtCreate());
 
         questionMapper.insertQuestion(question);
         return "redirect:/";

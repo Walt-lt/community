@@ -28,7 +28,7 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" th:if="${session.user !=null}">
+                <li class="dropdown" th:if="${session.user !=null&&error==null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">信件</a></li>
@@ -54,18 +54,26 @@
             <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">问题标题（必填）</label>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="问题标题。。。。。。">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="问题标题。。。。。。" th:text="${title}">
                 </div>
                 <div class="form-group">
-                    <label for="title">问题补充（必填）</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                    <label for="description">问题补充（必填）</label>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="10" th:text="${description}"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="title">添加标签</label>
-                    <input type="text" class="form-control" name="tag" id="tag" placeholder="输入标签，以 , 间隔">
+                    <label for="tag">添加标签</label>
+                    <input type="text" class="form-control" name="tag" id="tag" placeholder="输入标签，以 , 间隔" th:text="${tag}">
                 </div>
-                <button type="submit" class="btn btn-success publish_button" >发布</button>
-                <span th:text="${error}" class="alert alert-danger" ></span>
+                <div class="container-fluid mainCss" >
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-xs-12">
+                            <button type="submit" class="btn btn-success publish_button" >
+                                发布
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-12 col-xs-12 alert-danger alert" th:text="${error}" th:if="${error !=null}"></div>
+                </div>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-xs-12 bgc_grey1">

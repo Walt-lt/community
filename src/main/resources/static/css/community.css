@@ -14,3 +14,15 @@ body{
     float: right;
     margin: 15px;
 }
+.buttonFlash :hover{
+    background-color: #2e6da4;
+}
+.headIcon{
+    width: 40px;
+    height: 40px;
+}
+.textCount{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

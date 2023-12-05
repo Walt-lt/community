@@ -1,10 +1,10 @@
-package com.ltstudy.community.Model;
+package com.ltstudy.community.DTO;
 
+import com.ltstudy.community.Model.User;
 import lombok.Data;
-import org.apache.ibatis.annotations.Insert;
 
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -16,5 +16,4 @@ public class Question {
     private Integer commentCount;
     private Integer likeCount;
     private User user;
-
 }
