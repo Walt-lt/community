@@ -12,8 +12,8 @@ public class QuestionDTO {
     private long gmtCreate;
     private long gmtModified;
     private Integer creator;
-    private Integer viewCount;
-    private Integer commentCount;
-    private Integer likeCount;
+    private Integer countRead;
+    private Integer countComment;
+    private Integer countLike;
     private User user;
 }

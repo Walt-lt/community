@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8" http-equiv="Content-Type" content="text/html" >
     <title>Life Touch Studying Community</title>
-    <script src="js/jquery.min.js" type="application/javascript" ></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/community.css" >
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css" >
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/jquery.min.js" type="application/javascript" ></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/community.css" >
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" >
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 
 </head>
 <body>
@@ -34,10 +34,15 @@
                     </a>
                 </li>
                 <li class="dropdown" th:if="${session.user !=null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span>
+                            <img th:src="${session.user.getAvatarUrl()}" class="headIcon media-object img-circle ">
+                        </span>
+<!--                        <span class="caret"></span>-->
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">信件</a></li>
-                        <li><a href="#">账户信息</a></li>
+                        <li><a href="/profile/replies">信件</a></li>
+                        <li><a href="/profile/question">账户信息</a></li>
                         <li><a href="#">设置</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">退出登录</a></li>
@@ -51,14 +56,15 @@
     </div>
 </nav>
 <div class="container-fluid mainCss">
-    <div class="row bgc_grey1">
+    <div class="row bgc_grey2">
         <div class="col-lg-9 col-md-12 col-xs-12 ">
             <h3 class="glyphicon glyphicon-th-list " aria-hidden="true"><span>论坛</span></h3>
             <hr>
-            <div class="media" th:each="question:${questions}">
+            <div class="media" th:each="question:${pagination.questions}">
                 <div class="media-left" >
                     <a href="#">
-                        <img class="headIcon media-object img-circle " th:src="@{question.user.avatarUrl}" aria-hidden="true">
+                        <img class="headIcon media-object img-circle " th:src="${question.user.getAvatarUrl()}">
+<!--                        <img class="headIcon media-object img-circle " src="https://avatars.githubusercontent.com/u/152582307?v=4">-->
 
                     </a>
                 </div>
@@ -67,15 +73,46 @@
                     <br>
                     <span th:text="${question.description}"></span><br>
                     <span class="textCount">
-                        <span th:text="${question.commentCount}"></span>个回复.
-                        <span th:text="${question.viewCount}"></span>个浏览.
-                        <span th:text="${question.likeCount}"></span>个点赞.
+                        <span th:text="${question.getCountComment()}"></span>个回复.
+                        <span th:text="${question.getCountRead()}"></span>个浏览.
+                        <span th:text="${question.getCountLike()}"></span>个点赞.
+                        <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                     </span>
                     <hr>
+                    <br>
                 </div>
             </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li th:if="${pagination.showFirstPage}">
+                        <a href="/?page=1" aria-label="showFirstPage">
+                            <span aria-hidden="true">&lt&lt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pagination.showPrevious}">
+                        <a th:href="@{/(page=${pagination.getPage()-1})}" aria-label="showPrevious">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:each="page :${pagination.pages}" th:class="${pagination.page==page}?'active':''">
+                        <a th:text="${page}" th:href="@{/(page=${page})}">
+
+                        </a>
+                    </li>
+                    <li th:if="${pagination.showNext}">
+                        <a th:href="@{/(page=${pagination.getPage()+1})}" aria-label="showNext">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pagination.showLastPage}">
+                        <a th:href="@{/(page=${pagination.totalPage})}" aria-label="showLastPage">
+                            <span aria-hidden="true">&gt&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <div class="col-lg-3 col-md-12 col-xs-12 ">
+        <div class="col-lg-3 col-md-12 col-xs-12 bgc_grey1">
             <h3>热门话题</h3>
             <hr>
         </div>

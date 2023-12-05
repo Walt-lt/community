@@ -7,6 +7,9 @@ body{
 .bgc_grey1{
     background-color: #efefef;
 }
+.bgc_grey2{
+    background-color: #868579;
+}
 .bgc_write1{
     background-color: #dbdbdb;
 }
@@ -20,6 +23,10 @@ body{
 .headIcon{
     width: 40px;
     height: 40px;
+}
+.headIconL{
+    width: 30px;
+    height: 30px;
 }
 .textCount{
     font-size: 12px;

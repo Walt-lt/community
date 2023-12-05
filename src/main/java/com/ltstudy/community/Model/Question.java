@@ -12,9 +12,7 @@ public class Question {
     private long gmtCreate;
     private long gmtModified;
     private Integer creator;
-    private Integer viewCount;
-    private Integer commentCount;
-    private Integer likeCount;
-    private User user;
-
+    private Integer countRead;
+    private Integer countComment;
+    private Integer countLike;
 }

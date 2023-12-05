@@ -1,7 +1,6 @@
 package com.ltstudy.community.Controller;
 
 import com.ltstudy.community.Mapper.QuestionMapper;
-import com.ltstudy.community.Mapper.UserMapper;
 import com.ltstudy.community.Model.Question;
 import com.ltstudy.community.Model.User;
 import jakarta.servlet.http.Cookie;
@@ -18,9 +17,6 @@ public class PublishController {
 
     @Autowired
     private QuestionMapper questionMapper;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping("/publish")
     public String publish(){
@@ -47,19 +43,7 @@ public class PublishController {
         //写入cookie
         Cookie[] cookies=request.getCookies();
         //获取token
-        User user=new User();
-        for(Cookie cookie:cookies){
-            if(cookie.getName().equals("token")){
-                String token=cookie.getValue();
-            user = userMapper.findByToken(token);
-
-                //验证
-                if (user !=null){
-                    request.getSession().setAttribute("user" ,user);
-                }
-                break;
-            }
-        }
+        User user=(User) request.getSession().getAttribute("user");
         //验证用户是否登录
         if(user==null){
             model.addAttribute("error","用户未登录");
