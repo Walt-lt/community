@@ -1,11 +1,13 @@
 body{
+    /*background-color: #efefef;*/
     background-color: #adadad;
 }
 .mainCss{
     margin:30px;
 }
 .bgc_grey1{
-    background-color: #efefef;
+    /*background-color: #adadad;*/
+    background-color: #2aabd2;
 }
 .bgc_grey2{
     background-color: #868579;

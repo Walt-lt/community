@@ -1,8 +1,10 @@
 package com.ltstudy.community.Controller;
 
 import com.ltstudy.community.DTO.PageDTO;
+import com.ltstudy.community.DTO.QuestionDTO;
 import com.ltstudy.community.Mapper.QuestionMapper;
 import com.ltstudy.community.Mapper.UserMapper;
+import com.ltstudy.community.Model.Question;
 import com.ltstudy.community.Model.User;
 import com.ltstudy.community.Service.QuestionService;
 import jakarta.servlet.http.Cookie;
@@ -40,7 +42,7 @@ public class ProfileController {
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
         }
-
+        user.setId(23);
 
         PageDTO pageDTO=questionService.list1(user.getId(),page,size);
         model.addAttribute("pagination",pageDTO);
