@@ -7,7 +7,7 @@ body{
 }
 .bgc_grey1{
     /*background-color: #adadad;*/
-    background-color: #2aabd2;
+    background-color: #e7efbb;
 }
 .bgc_grey2{
     background-color: #868579;
@@ -34,4 +34,8 @@ body{
     font-size: 12px;
     font-weight: normal;
     color: #999;
+}
+.communityMenu{
+    color: #999;
+    font-size: 13px;
 }
