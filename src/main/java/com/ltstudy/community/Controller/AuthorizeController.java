@@ -5,6 +5,7 @@ import com.ltstudy.community.Model.User;
 import com.ltstudy.community.Provider.GitHubProvider;
 import com.ltstudy.community.DTO.AccessTokenDTO;
 import com.ltstudy.community.DTO.GitHubUser;
+import com.ltstudy.community.Service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,6 +31,8 @@ public class AuthorizeController {
 
     @Autowired//自动将实例化好的对象放在userMapper
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/callback")
@@ -52,11 +55,9 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(gitHubUser.getName());
             user.setAccountId(String.valueOf(gitHubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtModified());
             user.setAvatarUrl(gitHubUser.getAvatarUrl());
-
-            userMapper.insert(user);
+            userService.createAndUpdate(user);
+            //userMapper.insert(user);
             //cookie
             response.addCookie(new Cookie("token",token));
             //request.getSession().setAttribute("user",gitHubUser);
@@ -66,5 +67,13 @@ public class AuthorizeController {
             return "redirect:/";
         }
     }
-
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie= new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
+    }
 }

@@ -1,10 +1,7 @@
 package com.ltstudy.community.Mapper;
 
 import com.ltstudy.community.Model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -16,4 +13,11 @@ public interface UserMapper {
 
     @Select("select * from liu.user where  id= #{id}")
     User findById(@Param("id") Integer id);
+
+
+    @Select("select * from liu.user where accountId=#{accountId}")
+    User findByAccountId(@Param("accountId") String accountId);
+
+    @Update("update liu.user set name=#{name} ,token=#{token}, gmtModified=#{gmtModified},avatarUrl=#{avatarUrl}")
+    void userUpdate(User user);
 }

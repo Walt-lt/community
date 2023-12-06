@@ -1,10 +1,7 @@
 package com.ltstudy.community.Mapper;
 
 import com.ltstudy.community.Model.Question;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,4 +28,8 @@ public interface QuestionMapper {
 
     @Select("select * from liu.question where id=#{id}")
     Question getById(@Param("id") Integer id);
+
+    @Update("update liu.question set title=#{title},description=#{description},gmtModified=#{gmtModified},tag=#{tag},countRead=#{countRead} where id=#{id}")
+    void updateQuestion(Question question);
+
 }

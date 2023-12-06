@@ -117,4 +117,24 @@ public class QuestionService {
         questionDTO.setUser(user);
         return questionDTO;
     }
+
+    public void createAndUpdate(Question question) {
+        if (question.getId()==null){
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.insertQuestion(question);
+        }else {
+            //update
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.updateQuestion(question);
+        }
+    }
+
+
+    //浏览数
+    public void countView(Integer id) {
+        Question question=questionMapper.getById(id);
+        question.setCountRead(question.getCountRead()+1);
+        questionMapper.updateQuestion(question);
+    }
 }

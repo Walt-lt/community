@@ -45,7 +45,7 @@
                         <li><a href="/profile/question">账户信息</a></li>
                         <li><a href="#">设置</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">退出登录</a></li>
+                        <li><a href="/logout">退出登录</a></li>
                     </ul>
                 </li>
                 <li th:if="${session.user ==null}">
@@ -63,7 +63,7 @@
             <div class="media" th:each="question:${pagination.questions}">
                 <div class="media-left" >
                     <a href="#">
-                        <img class="headIcon media-object img-circle " th:src="${question.user.getAvatarUrl()}">
+                        <img class="headIcon media-object img-circle " th:src="${question.user.avatarUrl}">
 <!--                        <img class="headIcon media-object img-circle " src="https://avatars.githubusercontent.com/u/152582307?v=4">-->
 
                     </a>
