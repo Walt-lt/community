@@ -137,4 +137,13 @@ public class QuestionService {
         question.setCountRead(question.getCountRead()+1);
         questionMapper.updateQuestion(question);
     }
+
+    public void countComment(Integer id) {
+        Question question=questionMapper.getById(id);
+        question.setCountRead(question.getCountComment()+1);
+        questionMapper.updateQuestion(question);
+    }
+
+
+
 }

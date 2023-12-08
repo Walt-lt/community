@@ -1,17 +1,12 @@
 package com.ltstudy.community.DTO;
 
 
+import com.ltstudy.community.Model.Comment;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class CommentDTO {
-    private int id;
-    private int parentId;
-    private int type;
-    private int commentator;
-    private long gmtCreate;
-    private long gmtModified;
-    private int likeCount;
-    private int commentCount;
-    private String content;
+    private List<Comment> comments;
 }

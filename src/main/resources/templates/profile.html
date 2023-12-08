@@ -41,7 +41,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/profile/replies">信件</a></li>
-                        <li><a href="/profile/question">账户信息</a></li>
+                        <li><a href="#">账户信息</a></li>
                         <li><a href="#">设置</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/logout">退出登录</a></li>
@@ -115,7 +115,28 @@
                 </nav>
             </div>
             <div th:if="${section=='replies'}">
-                222222
+                <div th:each="comments:${comment}">
+                    <div class="media-left" >
+                        <a>
+                            <img class="headIcon media-object img-circle " th:src="${comments.questionDTO.user.getAvatarUrl()}">
+                            <span th:text="${comments.questionDTO.user.getName()}"></span>
+
+                            <!--                        <img class="headIcon media-object img-circle " src="https://avatars.githubusercontent.com/u/152582307?v=4">-->
+
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <br>
+                        <span th:text="${comments.content}"></span><br>
+                        <span class="textCount">
+                        <span th:text="${comments.getCommentCount()}"></span>个回复.
+                        <span th:text="${comments.getLikeCount()}"></span>个点赞.
+                        <span th:text="${#dates.format(comments.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
+                    </span>
+                        <div>___________________________________</div>
+                        <br>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-12 col-xs-12 bgc_grey1">

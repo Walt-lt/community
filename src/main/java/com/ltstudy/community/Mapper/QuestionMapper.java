@@ -1,5 +1,6 @@
 package com.ltstudy.community.Mapper;
 
+import com.ltstudy.community.DTO.QuestionDTO;
 import com.ltstudy.community.Model.Question;
 import org.apache.ibatis.annotations.*;
 
@@ -29,7 +30,10 @@ public interface QuestionMapper {
     @Select("select * from liu.question where id=#{id}")
     Question getById(@Param("id") Integer id);
 
-    @Update("update liu.question set title=#{title},description=#{description},gmtModified=#{gmtModified},tag=#{tag},countRead=#{countRead} where id=#{id}")
+    @Select("select * from liu.question where id=#{id}")
+    QuestionDTO getQuestionById(@Param("id") Integer id);
+
+    @Update("update liu.question set title=#{title},description=#{description},gmtModified=#{gmtModified},tag=#{tag},countRead=#{countRead},countComment=#{countComment},countLike=#{countLike} where id=#{id}")
     void updateQuestion(Question question);
 
 }

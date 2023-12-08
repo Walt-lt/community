@@ -62,7 +62,6 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
-
         //写入cookie
         Cookie[] cookies=request.getCookies();
         //获取token
