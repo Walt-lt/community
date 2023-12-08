@@ -47,6 +47,9 @@ public class ProfileController {
         } else if ("replies".equals(action)) {
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
+        }else if("information".equals(action)){
+            model.addAttribute("section","information");
+            model.addAttribute("sectionName","个人信息");
         }
         //user.setId(23);
 

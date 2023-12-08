@@ -40,9 +40,7 @@
                         <!--                        <span class="caret"></span>-->
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/profile/replies">信件</a></li>
-                        <li><a href="#">账户信息</a></li>
-                        <li><a href="#">设置</a></li>
+                        <li><a href="/profile/information">个人中心</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/logout">退出登录</a></li>
                     </ul>
@@ -59,6 +57,7 @@
         <div class="col-lg-9 col-md-12 col-xs-12 ">
             <h2><span th:text="${sectionName}" ></span></h2>
             <hr>
+<!--            消息-->
             <div th:if="${section=='question'}">
                 <div class="media" th:each="question:${pagination.questions}">
                     <div class="media-left" >
@@ -114,6 +113,7 @@
                     </ul>
                 </nav>
             </div>
+<!--            回复-->
             <div th:if="${section=='replies'}">
                 <div th:each="comments:${comment}">
                     <div class="media-left" >
@@ -138,12 +138,46 @@
                     </div>
                 </div>
             </div>
+<!--            个人信息-->
+            <div  th:if="${section=='information'}">
+                111111111111111
+                <form action="">
+                    <input type="hidden" name="id" th:value="${id}">
+                    <div class="form-group">
+                        <label for="userName">用户名</label>
+                        <input type="text" class="form-control" name="userName" id="userName" placeholder="用户名。。。。。。" th:value="${session.user.getName()}">
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">签名描述</label>
+                        <textarea class="form-control" name="bio" id="bio" cols="30" rows="10" th:text="${session.user.getBio()}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>用户头像</label>
+                        <br>
+                        <img th:src="${session.user.getAvatarUrl()}">
+                    </div>
+                    <div class="container-fluid mainCss" >
+                        <div class="row">
+                            <div class="col-lg-9 col-md-12 col-xs-12">
+                                <a href="https://github.com/settings/profile">
+                                    <button type="button" class="btn btn-success publish_button" >
+                                        更新资料
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+<!--                        <div class="col-lg-9 col-md-12 col-xs-12 alert-danger alert" th:text="${error}" th:if="${error !=null}"></div>-->
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="col-lg-3 col-md-12 col-xs-12 bgc_grey1">
             <div class="list-group">
                 <a href="/profile/question"  th:class="${section=='question'}?'active list-group-item':'list-group-item'">我的发布</a>
-                <a href="/profile/replies"  th:class="${section=='repies'}?'active list-group-item':'list-group-item'">最新回复</a>
-<!--                <a href="#" class="list-group-item" th:class="${section=='question'}?'active':''"></a>-->
+                <a href="/profile/replies"  th:class="${section=='replies'}?'active list-group-item':'list-group-item'">最新回复</a>
+                <a href="/profile/information"  th:class="${section=='information'}?'active list-group-item':'list-group-item'">个人信息</a>
+
+<!--                <a href="/profile/information" class="list-group-item" th:class="${section=='question'}?'active':''"></a>-->
 <!--                <a href="#" class="list-group-item" th:class="${section=='question'}?'active':''"></a>-->
 <!--                <a href="#" class="list-group-item" th:class="${section=='question'}?'active':''"></a>-->
             </div>

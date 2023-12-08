@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
-   @Insert("insert into liu.user (accountId,name,token,gmtCreate,gmtModified,avatarUrl) VALUES ( #{accountId},#{name},#{token},#{gmtCreate},#{gmtModified},#{avatarUrl} )")
+   @Insert("insert into liu.user (accountId,name,token,gmtCreate,gmtModified,avatarUrl,bio) VALUES ( #{accountId},#{name},#{token},#{gmtCreate},#{gmtModified},#{avatarUrl},#{bio} )")
     void insert(User user);
 
    @Select("select * from liu.user where token = #{token}")

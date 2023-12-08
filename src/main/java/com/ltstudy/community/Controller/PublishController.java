@@ -85,16 +85,30 @@ public class PublishController {
             model.addAttribute("error","标签不为空");
             return "publish";
         }
+        if(id==null){
+            Question question=new Question();
+            question.setTitle(title);
+            question.setDescription(description);
+            question.setTag(tag);
+            question.setCreator(user.getId());
+            questionService.createAndUpdate(question);
+        }else {
+            QuestionDTO questionDTO=questionService.GetById(id);
 
-        //将得到的信息传输到表中
-        Question question=new Question();
-        question.setTitle(title);
-        question.setDescription(description);
-        question.setTag(tag);
-        question.setCreator(user.getId());
-        question.setId(id);
 
-        questionService.createAndUpdate(question);
+            //将得到的信息传输到表中
+            Question question=new Question();
+            question.setTitle(title);
+            question.setDescription(description);
+            question.setTag(tag);
+            question.setCreator(user.getId());
+            question.setId(id);
+            question.setCountComment(questionDTO.getCountComment());
+            question.setCountRead(questionDTO.getCountRead());
+            question.setCountLike(question.getCountLike());
+
+            questionService.createAndUpdate(question);
+        }
         return "redirect:/";
     }
 }

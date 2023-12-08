@@ -81,7 +81,7 @@ public class QuestionController {
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setCommentator(user.getId());
         commentMapper.insertComment(comment);
-        return "question";
+        return "redirect:/question/{id}";
     }
 
 }

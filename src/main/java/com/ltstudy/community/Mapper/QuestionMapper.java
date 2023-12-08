@@ -36,4 +36,9 @@ public interface QuestionMapper {
     @Update("update liu.question set title=#{title},description=#{description},gmtModified=#{gmtModified},tag=#{tag},countRead=#{countRead},countComment=#{countComment},countLike=#{countLike} where id=#{id}")
     void updateQuestion(Question question);
 
+//    @Select("select count(1) from liu.question where tag=#{search}")
+//    Integer CountByTag(String search);
+//
+    @Select("select * from liu.question where tag=#{search}")
+    List<Question> listByTag(String search);
 }

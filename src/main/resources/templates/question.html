@@ -42,9 +42,7 @@
                         <!--                        <span class="caret"></span>-->
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/profile/replies">信件</a></li>
-                        <li><a href="#">账户信息</a></li>
-                        <li><a href="#">设置</a></li>
+                        <li><a href="/profile/information">个人中心</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/logout">退出登录</a></li>
                     </ul>
@@ -74,6 +72,7 @@
                 </span>
                 <div>___________________________________</div>
                 <h4> 内容</h4>
+                <div>___________________________________</div>
                 <hr>
                 <div class="bgc_grey1 col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                 <div>___________________________________</div>
@@ -84,8 +83,9 @@
                 <div>___________________________________</div>
                 <hr>
             </div>
-            <div><h6>评论区</h6></div>
             <div>___________________________________</div>
+            <div><h6>评论区</h6></div>
+
             <br>
             <div th:each="comments:${comment}">
                 <div class="media-left" >

@@ -26,6 +26,7 @@ public class QuestionService {
     public PageDTO list(Integer page, Integer size) {
 
 
+
         PageDTO pageDTO=new PageDTO();
         Integer totalPage;
         Integer totalCount=questionMapper.Count();
@@ -109,6 +110,72 @@ public class QuestionService {
         return  pageDTO;
     }
 
+    public List<QuestionDTO> list2(String search) {
+
+
+
+        List<Question> questions=questionMapper.listByTag(search);
+        List<QuestionDTO> questionDTOList=new ArrayList<>();
+        //page包含QuestionDTOList;
+        for (Question question:questions){
+
+            User user= userMapper.findById(question.getCreator());
+
+            QuestionDTO questionDTO=new QuestionDTO();
+            BeanUtils.copyProperties(question,questionDTO);
+
+            questionDTO.setUser(user);
+
+            questionDTOList.add(questionDTO);
+
+
+        }
+        return questionDTOList;
+    }
+
+//    public PageDTO list2(String search, Integer page, Integer size) {
+//        PageDTO pageDTO=new PageDTO();
+//        Integer totalPage;
+//        Integer totalCount=questionMapper.CountByTag(search);
+//
+//
+//        if (totalCount%size == 0) {
+//            totalPage=totalCount/size;
+//        }else{
+//            totalPage=totalCount/size+1;
+//        }
+//        //page超限处理
+//        if(page<1){
+//            page=1;
+//        }
+//        if(page>totalPage){
+//            page=totalPage;
+//        }
+//        pageDTO.setPagination(totalPage,page);
+//        Integer offset=size*(page-1);
+//
+//        List<Question> questions=questionMapper.listByTag(search,offset,size);
+//        List<QuestionDTO> questionDTOList=new ArrayList<>();
+//        //page包含QuestionDTOList;
+//        for (Question question:questions){
+//
+//            User user= userMapper.findById(question.getCreator());
+//
+//            QuestionDTO questionDTO=new QuestionDTO();
+//            BeanUtils.copyProperties(question,questionDTO);
+//
+//            questionDTO.setUser(user);
+//
+//            questionDTOList.add(questionDTO);
+//
+//
+//        }
+//        pageDTO.setQuestions(questionDTOList);
+//        return  pageDTO;
+//    }
+
+
+
     public QuestionDTO GetById(Integer id) {
         Question question=questionMapper.getById(id);
         QuestionDTO questionDTO=new QuestionDTO();
@@ -140,7 +207,7 @@ public class QuestionService {
 
     public void countComment(Integer id) {
         Question question=questionMapper.getById(id);
-        question.setCountRead(question.getCountComment()+1);
+        question.setCountComment(question.getCountComment()+1);
         questionMapper.updateQuestion(question);
     }
 
