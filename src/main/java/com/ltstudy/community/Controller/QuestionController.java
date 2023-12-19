@@ -32,6 +32,7 @@ public class QuestionController {
     @Autowired
     private QuestionMapper questionMapper;
 
+    //进入问题详情界面
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Integer id,
                            Model model){
@@ -47,6 +48,9 @@ public class QuestionController {
         model.addAttribute("questions",questionDTO);
         return "question";
     }
+
+
+    //发表评论并展示
     @PostMapping("/question/{id}")
     public String doComment(
             @PathVariable(name = "id") Integer id,

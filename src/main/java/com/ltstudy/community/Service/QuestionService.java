@@ -176,6 +176,7 @@ public class QuestionService {
 
 
 
+    //通过Id获得question表的内容
     public QuestionDTO GetById(Integer id) {
         Question question=questionMapper.getById(id);
         QuestionDTO questionDTO=new QuestionDTO();
@@ -185,6 +186,7 @@ public class QuestionService {
         return questionDTO;
     }
 
+    //Question表创建并更新
     public void createAndUpdate(Question question) {
         if (question.getId()==null){
             question.setGmtCreate(System.currentTimeMillis());
@@ -205,6 +207,7 @@ public class QuestionService {
         questionMapper.updateQuestion(question);
     }
 
+    //评论数
     public void countComment(Integer id) {
         Question question=questionMapper.getById(id);
         question.setCountComment(question.getCountComment()+1);
